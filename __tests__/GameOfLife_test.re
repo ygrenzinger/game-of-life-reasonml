@@ -27,20 +27,36 @@ describe("Game of Life", () => {
     () =>
     expect(nextCellState(Dead, 3)) |> toBe(Alive)
   );
-  test(
-    "yo",
-    () =>
-    expect(nextCellState(Dead, 3)) |> toBe(Alive)
-  );
-  test(
-    "yu",
-    () =>
-    expect(nextCellState(Dead, 2)) |> toBe(Dead)
-  );
   testAll(
     "Any dead cell stays dead if not three live neighbours",
     List.filter(x => x != 3, Array.to_list(range(0,8))),
     x =>
     expect(nextCellState(Dead, x)) |> toBe(Dead)
+  );
+  testAll(
+    "All cell are dead when creating a board",
+    createBoard(3) |> cells |> List.map((cell) => cell.state) ,
+    x =>
+    expect(x) |> toBe(Dead)
+  );
+  test(
+    "Can make alive a cell",
+    () => {
+      let cellState = createBoard(3) -> makeAlive(1,1) -> cellAt(1,1);
+      expect(cellState) |> toBe(Alive)
+    }
+  );
+  test(
+    "Count number of alive neighbours",
+    () => {
+      let board = createBoard(3)
+      let fullBoard = cells(board)
+        |> List.map((cell) => cell.position)
+        |> List.fold_left((board, position) => {
+          let (i, j) = position
+          makeAlive(board, i, j)
+        }, board)
+      expect(aliveNeighboursForCellAt(fullBoard, 1, 1)) |> toBe(8)
+    }
   );
 });
