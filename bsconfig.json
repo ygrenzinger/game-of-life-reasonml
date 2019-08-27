@@ -16,8 +16,11 @@
     "in-source": true
   },
   "suffix": ".bs.js",
+  "reason": {
+    "react-jsx": 3
+  },
   "bs-dependencies": [
-
+    "reason-react"
   ],
   "bs-dev-dependencies": [
     "@glennsl/bs-jest"
