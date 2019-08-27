@@ -35,7 +35,7 @@ describe("Game of Life", () => {
   );
   testAll(
     "All cell are dead when creating a board",
-    createBoard(3) |> cells |> List.map((cell) => cell.state) ,
+    createBoard(3) |> cells |> List.map((cell) => cell.cellState) ,
     x =>
     expect(x) |> toBe(Dead)
   );
@@ -57,6 +57,32 @@ describe("Game of Life", () => {
           makeAlive(board, i, j)
         }, board)
       expect(aliveNeighboursForCellAt(fullBoard, 1, 1)) |> toBe(8)
+    }
+  );
+  test(
+    "Block pattern",
+    () => {
+      let board = createBoard(4)
+       -> makeAlive(1, 1)
+       -> makeAlive(1, 2)
+       -> makeAlive(2, 2)
+       -> makeAlive(2, 1)
+      expect(nextGeneration(board)) |> toEqual(board)
+    }
+  );
+  test(
+    "Blink pattern",
+    () => {
+      let board = createBoard(5)
+       -> makeAlive(1, 2)
+       -> makeAlive(2, 2)
+       -> makeAlive(3, 2);
+      let expected = createBoard(5)
+        -> makeAlive(2, 1)
+        -> makeAlive(2, 2)
+        -> makeAlive(2, 3);
+      let result = nextGeneration(board);
+      expect(result) |> toEqual(expected)
     }
   );
 });
