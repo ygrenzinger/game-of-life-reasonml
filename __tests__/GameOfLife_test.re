@@ -42,7 +42,7 @@ describe("Game of Life", () => {
   test(
     "Can make alive a cell",
     () => {
-      let cellState = createBoard(3) -> makeAlive(1,1) -> cellAt(1,1);
+      let cellState = createBoard(3) -> makeAlive((1,1)) -> cellAt(1,1);
       expect(cellState) |> toBe(Alive)
     }
   );
@@ -54,7 +54,7 @@ describe("Game of Life", () => {
         |> List.map((cell) => cell.position)
         |> List.fold_left((board, position) => {
           let (i, j) = position
-          makeAlive(board, i, j)
+          makeAlive(board, (i, j))
         }, board)
       expect(aliveNeighboursForCellAt(fullBoard, 1, 1)) |> toBe(8)
     }
@@ -63,10 +63,10 @@ describe("Game of Life", () => {
     "Block pattern",
     () => {
       let board = createBoard(4)
-       -> makeAlive(1, 1)
-       -> makeAlive(1, 2)
-       -> makeAlive(2, 2)
-       -> makeAlive(2, 1)
+       -> makeAlive((1, 1))
+       -> makeAlive((1, 2))
+       -> makeAlive((2, 2))
+       -> makeAlive((2, 1))
       expect(nextGeneration(board)) |> toEqual(board)
     }
   );
@@ -74,13 +74,13 @@ describe("Game of Life", () => {
     "Blink pattern",
     () => {
       let board = createBoard(5)
-       -> makeAlive(1, 2)
-       -> makeAlive(2, 2)
-       -> makeAlive(3, 2);
+       -> makeAlive((1, 2))
+       -> makeAlive((2, 2))
+       -> makeAlive((3, 2));
       let expected = createBoard(5)
-        -> makeAlive(2, 1)
-        -> makeAlive(2, 2)
-        -> makeAlive(2, 3);
+        -> makeAlive((2, 1))
+        -> makeAlive((2, 2))
+        -> makeAlive((2, 3));
       let result = nextGeneration(board);
       expect(result) |> toEqual(expected)
     }

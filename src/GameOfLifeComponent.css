@@ -1,0 +1,16 @@
+.row {
+    height: 20px;
+    margin:0;
+}
+
+.cell {
+  display: inline-block;
+  width: 20px;
+  height: 100%;
+  box-sizing: border-box;
+  border: 0.1em solid black;
+}
+
+.alive {
+  background-color: black;
+}

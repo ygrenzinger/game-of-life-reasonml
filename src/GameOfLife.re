@@ -44,8 +44,9 @@ let createBoard = (size: int) => {
   grid: make(size, make(size, Dead)),
 };
 
-let makeAlive = (board: board, rowIndex: int, columnIndex: int): board => {
+let makeAlive = (board: board, position: position): board => {
   let board = {size: board.size, grid: copy(board.grid)};
+  let (rowIndex, columnIndex) = position;
   let row = makeAlive(get(board.grid, rowIndex), columnIndex);
   set(board.grid, rowIndex, row);
   board;
@@ -85,7 +86,7 @@ let nextGeneration = (previousBoard: board) =>
       let aliveNeighbours = aliveNeighboursForCellAt(previousBoard, i, j);
       let nextCellState = nextCellState(cell.cellState, aliveNeighbours);
       if (nextCellState == Alive) {
-        makeAlive(nextBoard, i, j);
+        makeAlive(nextBoard, (i, j));
       } else {
         nextBoard;
       };
