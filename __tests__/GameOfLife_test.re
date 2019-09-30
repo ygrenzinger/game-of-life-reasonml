@@ -42,8 +42,8 @@ describe("Game of Life", () => {
   test(
     "Can make alive a cell",
     () => {
-      let cellState = createBoard(3) -> makeAlive((1,1)) -> cellAt((1,1));
-      expect(cellState) |> toBe(Alive)
+      let cell = createBoard(3) -> makeAlive((1,1)) -> cellAt((1,1));
+      expect(cell.cellState) |> toBe(Alive)
     }
   );
   test(

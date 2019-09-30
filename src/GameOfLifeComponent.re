@@ -41,23 +41,19 @@ let make = () => {
     Some(() => Js.Global.clearInterval(timerId));
   });
 
-  let renderCell = (cellState: cellState, position: position) => {
-    let className = "cell " ++ (cellState == Alive ? "alive" : "dead");
-    <span className onClick={_ => dispatch(Activating(position))} />;
+  let renderCell = (cell: cell) => {
+    let className = "cell " ++ (cell.cellState == Alive ? "alive" : "dead");
+    <span className onClick={_ => dispatch(Activating(cell.position))} />;
   };
 
-  let renderRow = (row: row, rowIndex: int) => {
-    let cells =
-      Array.mapi(
-        (columnIndex, cell) => renderCell(cell, (rowIndex, columnIndex)),
-        row,
-      );
+  let renderRow = (row: row) => {
+    let cells = Array.map(renderCell, row);
     <div className="row"> {React.array(cells)} </div>;
   };
 
   let renderGrid = (board: board) => {
     let rows =
-      Array.mapi((rowIndex, row) => renderRow(row, rowIndex), board.grid);
+      Array.map(renderRow, board.grid);
     <div> {React.array(rows)} </div>;
   };
 
